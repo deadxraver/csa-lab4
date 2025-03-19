@@ -1,0 +1,3 @@
+(out "What is your name?\n")
+(val name (in))
+(out "Hello, " name "!\n")
