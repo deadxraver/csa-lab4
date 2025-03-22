@@ -1,3 +1,3 @@
-(out "What is your name?\n")
-(val name (in))
-(out "Hello, " name "!\n")
+(наружу "What is your name?\n")
+(падика name (in))
+(наружу "Hello, " name "!\n")

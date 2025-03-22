@@ -1,2 +1,2 @@
-(val input_text (in))
-(out input_text '\n')
+(падика input_text (внутрь))
+(наружу input_text '\n')
