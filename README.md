@@ -8,8 +8,9 @@
 2. `(объяв <name> [<arg1> <arg2>...<argn>] (<function> <farg1> <farg2>...<fargn>))`
 3. `(падика <name> (<value>))`
 
-Functions can also be used as args, but should be wrapped in brackets, e.g. \
-```
+Functions can also be used as args, but should be wrapped in brackets, e.g.
+
+```lisp
 (падика one_const (1))
 (объяв sum [x y] (+ x y))
 (объяв print_plus_one [x] (наружу (sum x one_const)))
