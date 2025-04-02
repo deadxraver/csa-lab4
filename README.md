@@ -6,12 +6,12 @@
 
 1. `(<function> <arg1> <arg2>...<argn>)`
 2. `(объяв <name> [<arg1> <arg2>...<argn>] (<function> <farg1> <farg2>...<fargn>))`
-3. `(падика <name> (<value>))`
+3. `(пост <name> (<value>))`
 
 Functions can also be used as args, but should be wrapped in brackets, e.g.
 
 ```lisp
-(падика one_const (1))
+(пост one_const (1))
 (объяв sum [x y] (+ x y))
 (объяв print_plus_one [x] (наружу (sum x one_const)))
 
@@ -20,8 +20,8 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 
 ### Keywords
 
-* `падика` - constant / function declaration
-* `объяв` - same as `падика`, but expects args in square brackets
+* `пост` - constant / function declaration
+* `объяв` - same as `пост`, but expects args in square brackets
 * `внутрь` - function, returns string line from `stdin`
 * `наружу` - function, takes variable amount of strings or chars in args, prints them in `stdout`
 * `@хр` - annotation for tail recursion optimisation
