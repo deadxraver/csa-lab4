@@ -1,2 +1,2 @@
-(падика input_text (внутрь))
+(пост input_text (внутрь))
 (наружу input_text '\n')

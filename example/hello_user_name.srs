@@ -1,3 +1,3 @@
 (наружу "What is your name?\n")
-(падика name (in))
+(пост name (in))
 (наружу "Hello, " name "!\n")
