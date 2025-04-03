@@ -4,7 +4,7 @@ BINARY=build
 
 .PHONY: clean
 
-translator: $(TRANSLATOR)/main.rs $(TRANSLATOR)/srs_commands.rs $(BINARY)
+translator: $(TRANSLATOR)/main.rs $(TRANSLATOR)/srs_commands.rs $(TRANSLATOR)/asm_commands.rs $(BINARY)
 	$(CC) -o $(BINARY)/translator $(TRANSLATOR)/main.rs
 
 $(BINARY):

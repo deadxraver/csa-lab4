@@ -1,4 +1,5 @@
 pub mod srs_commands;
+pub mod asm_commands;
 use std::io::Read;
 
 fn main() {
@@ -7,4 +8,5 @@ fn main() {
     let mut contents = String::new();
     file.read_to_string(&mut contents).expect("Unexpected error while reading file contents");
     print!("{contents}");
+    println!("{:#02x}", asm_commands::Opcodes::Add as u16);
 }
