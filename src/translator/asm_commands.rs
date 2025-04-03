@@ -37,7 +37,6 @@ fn shift_left(num: u64) -> u32 {
     (num << SHIFT) as u32
 }
 
-
 pub struct MachineInstruction {
     opcode: Opcodes,
     operand: u8,
