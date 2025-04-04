@@ -7,10 +7,11 @@ TEST_DIR=tests
 
 test:
 	make build_test
-	$(BINARY_DIR)/test
+	$(BINARY_DIR)/test1
+	# TODO: run another tests
 
 build_test: $(TEST_DIR) $(BINARY_DIR)
-	$(CC) -o $(BINARY_DIR)/test $(TEST_DIR)/test.rs
+	$(CC) --out-dir $(BINARY_DIR) $(TEST_DIR)/test1.rs
 
 translator: $(TRANSLATOR)/main.rs $(TRANSLATOR)/srs_commands.rs $(TRANSLATOR)/asm_commands.rs $(BINARY_DIR)
 	$(CC) -o $(BINARY_DIR)/translator $(TRANSLATOR)/main.rs
