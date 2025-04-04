@@ -16,6 +16,7 @@ jobs:
         run: |
           apt update -y
           apt install -y rustc
+          apt install -y make
       - name: "Build"
         run: make translator
       - name: "Test"
