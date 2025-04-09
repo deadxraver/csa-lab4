@@ -5,16 +5,17 @@ on: [push]
 
 env:
   GH_TOKEN: ${{github.token}}
+  CARGO_TERM_COLOR: always
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
     container: ubuntu:24.04
     steps:
-      - uses: actions/checkout@v3
-      - name: "Install dependencies"
+      - uses: actions/checkout@v4
+      - name: "Prep"
         run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+          - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
       - name: "Build"
         run: cargo build
       - name: "Test"
