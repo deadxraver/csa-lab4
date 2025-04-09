@@ -14,8 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Install dependencies"
-        run: |
-        apt install cargo -y
+        run: apt install cargo -y
       - name: "Build"
         run: cargo build
       - name: "Test"
