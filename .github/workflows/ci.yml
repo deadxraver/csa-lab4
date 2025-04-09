@@ -13,9 +13,9 @@ jobs:
     container: ubuntu:24.04
     steps:
       - uses: actions/checkout@v4
-      - name: "Prep"
+      - name: "Install dependencies"
         run: |
-          - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
+        apt install cargo -y
       - name: "Build"
         run: cargo build
       - name: "Test"
