@@ -5,10 +5,7 @@ const OPERAND_MASK: u64 = 0x000F;
 #[allow(dead_code)]
 #[derive(Debug)]
 pub enum Opcodes {
-    PushImm0 = 0x00,
-    PushImm1,
-    PushImm2,
-    PushImm3,
+    PushImm = 0x00,
     Add,
     Sub,
     Mul,
