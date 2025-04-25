@@ -2,6 +2,8 @@
 mod asm_commands;
 #[path = "../translator/srs_commands.rs"]
 mod srs_commands;
+#[path = "../translator/tokenizer.rs"]
+mod tokenizer;
 use std::io::Read;
 
 fn main() {
@@ -11,8 +13,13 @@ fn main() {
     file.read_to_string(&mut contents)
         .expect("Unexpected error while reading file contents");
     // TODO: remove everything below this line, it is for testing components
-    print!("{contents}");
-
-    println!("{:#04x}", asm_commands::Opcodes::Add as u16);
-    println!("{:?}", asm_commands::Opcodes::Add);
+    let tokens = tokenizer::tokenize(&contents);
+    println!("Tokens:");
+    for line in tokens.0 {
+        println!("{:?}", line);
+    }
+    println!("Strings to be replaced:");
+    for string in tokens.1 {
+        println!("{:?}", string);
+    }
 }
