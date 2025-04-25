@@ -1,5 +1,7 @@
 #[path = "../translator/asm_commands.rs"]
 mod asm_commands;
+#[path = "../translator/srs_commands.rs"]
+mod srs_commands;
 use std::io::Read;
 
 fn main() {

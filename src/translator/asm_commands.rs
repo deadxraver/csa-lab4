@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 const SHIFT: u8 = 8;
-const OPCODE_MASK: u64 = 0x0FF0;
+const OPCODE_MASK: u64 = 0x000F;
 const OPERAND_MASK: u64 = 0x000F;
-
+#[allow(dead_code)]
 #[derive(Debug)]
 pub enum Opcodes {
     PushImm0 = 0x00,
@@ -37,11 +37,6 @@ fn shift_left(num: u64) -> u32 {
     (num << SHIFT) as u32
 }
 
-pub struct MachineInstruction {
-    opcode: Opcodes,
-    operand: u8,
-}
-
-pub fn to_bytes(instruction: MachineInstruction) -> u32 {
-    instruction.operand as u32 + shift_left(instruction.opcode as u64)
+pub fn to_bytes(opcode: Opcodes) -> u8 {
+    opcode as u8
 }
