@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 const SHIFT: u8 = 8;
 const OPCODE_MASK: u64 = 0x000F;
-const OPERAND_MASK: u64 = 0x000F;
+
 #[allow(dead_code)]
 #[derive(Debug)]
 pub enum Opcodes {
