@@ -1,7 +1,10 @@
 pub fn tokenize(input: &str) -> (Vec<Vec<String>>, Vec<String>) {
     let mut lines: Vec<Vec<String>> = Vec::new();
     let mut strings: Vec<String> = Vec::new();
-    for line in extract_strings(input, &mut strings).trim().split('\n') {
+    for line in rethink_newlines(extract_strings(input, &mut strings))
+        .trim()
+        .split('\n')
+    {
         lines.push(
             line.replace("(", " ( ")
                 .replace(")", " ) ")
@@ -13,6 +16,27 @@ pub fn tokenize(input: &str) -> (Vec<Vec<String>>, Vec<String>) {
         );
     }
     (lines, strings)
+}
+
+fn rethink_newlines(input: String) -> String {
+    let mut new_str = String::new();
+    let mut scopes: u8 = 0;
+    for c in input.chars() {
+        if c == '\n' {
+            continue;
+        }
+        new_str.push(c);
+        if c == '(' {
+            scopes += 1;
+        } else if c == ')' {
+            scopes -= 1;
+            if scopes == 0 {
+                new_str.push('\n');
+            }
+        }
+        
+    }
+    new_str
 }
 
 fn extract_strings(input: &str, storage: &mut Vec<String>) -> String {
