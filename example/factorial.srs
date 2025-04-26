@@ -1,2 +1,2 @@
 @хр (объяв factorial [n] (? (= n 1) 1 : (* n (себя (- n 1)))))
-(наружу factorial 5)
+(наружу (factorial 5))
