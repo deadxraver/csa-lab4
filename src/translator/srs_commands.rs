@@ -22,7 +22,30 @@ pub enum KeyWords {
     ImmediateNumber, // e.g. (print 5)
     ScopeStart,      // `(`
     ScopeEnd,        // `)`
+    ArgScopeStart,   // `[`
+    ArgScopeEnd,     // `]`
     None,            // if nothing matched
+}
+#[derive(Debug, PartialEq, Eq, Copy, Clone)]
+pub enum TokenType {
+    Keyword,
+    Number,
+    Const,
+    FunctionCall,
+    String,
+    Scope,
+    ArgScope,
+    None,
+    Annotation,
+    Declaration,
+}
+
+#[derive(Debug)]
+pub struct CompleteToken {
+    pub token_type: TokenType,
+    pub token: KeyWords,
+    pub numeric_rep: i32,   // immediate value / string number
+    pub string_rep: String, // function name / constant name
 }
 #[allow(dead_code)]
 pub fn parse_string(s: &str) -> KeyWords {
@@ -62,6 +85,8 @@ fn find_match_with_enum(s: &str) -> KeyWords {
         "<<" | "сдвг" => KeyWords::Shift,
         "(" => KeyWords::ScopeStart,
         ")" => KeyWords::ScopeEnd,
+        "[" => KeyWords::ArgScopeStart,
+        "]" => KeyWords::ArgScopeEnd,
         _ => KeyWords::None,
     }
 }

@@ -1,3 +1,5 @@
+use crate::srs_commands::{parse_string, CompleteToken, KeyWords, TokenType};
+
 #[path = "../util/formater.rs"]
 mod formater;
 
@@ -11,6 +13,8 @@ pub fn tokenize(input: &str) -> (Vec<Vec<String>>, Vec<String>) {
         lines.push(
             line.replace("(", " ( ")
                 .replace(")", " ) ")
+                .replace("[", " [ ")
+                .replace("]", " ] ")
                 .trim()
                 .split(' ')
                 .map(|s| s.to_string())
@@ -19,4 +23,68 @@ pub fn tokenize(input: &str) -> (Vec<Vec<String>>, Vec<String>) {
         );
     }
     (lines, strings)
+}
+
+pub fn strings_to_enum(tokens: Vec<String>) -> Vec<CompleteToken> {
+    let mut commands: Vec<CompleteToken> = Vec::with_capacity(tokens.len());
+    let mut args: Vec<String> = Vec::new();
+    for i in 0..tokens.len() {
+        let mut keyword = parse_string(&tokens[i]);
+        let token_type: TokenType = match keyword {
+            KeyWords::Const | KeyWords::Function => TokenType::Declaration,
+            KeyWords::Input | KeyWords::Output => TokenType::FunctionCall,
+            KeyWords::TailRec => TokenType::Annotation,
+            KeyWords::Recur => TokenType::FunctionCall,
+            KeyWords::Plus
+            | KeyWords::Minus
+            | KeyWords::Multiply
+            | KeyWords::Divide
+            | KeyWords::Remainder
+            | KeyWords::Equal
+            | KeyWords::NotEqual
+            | KeyWords::Greater
+            | KeyWords::If
+            | KeyWords::Shift => TokenType::Keyword,
+            KeyWords::FromMemory => {
+                if commands[i - 1].token_type == TokenType::Declaration {
+                    keyword = KeyWords::Function; // TODO: save function name
+                    TokenType::Declaration
+                } else if commands[i - 1].token == KeyWords::ScopeStart {
+                    TokenType::FunctionCall
+                } else {
+                    TokenType::Const
+                }
+            }
+            KeyWords::StringUse => TokenType::String,
+            KeyWords::ImmediateNumber => TokenType::Number,
+            KeyWords::ScopeStart | KeyWords::ScopeEnd => TokenType::Scope,
+            KeyWords::ArgScopeStart | KeyWords::ArgScopeEnd => TokenType::ArgScope,
+            KeyWords::None => TokenType::None,
+        };
+        let mut final_token = CompleteToken {
+            token_type,
+            token: keyword,
+            numeric_rep: -1,
+            string_rep: String::new(),
+        };
+        if token_type == TokenType::Number {
+            final_token.numeric_rep = tokens[i]
+                .parse::<i32>()
+                .expect("Error while parsing numeric arguments");
+        } else if token_type == TokenType::String {
+            final_token.numeric_rep = tokens[i].replace('&', "").parse::<i32>().unwrap();
+        } else if token_type == TokenType::FunctionCall {
+            final_token.string_rep = tokens[i].clone();
+        } else if token_type == TokenType::Const {
+            let res = args.binary_search(&tokens[i]);
+            if res.is_ok() {
+                final_token.numeric_rep = res.unwrap() as i32;
+            } else {
+                final_token.string_rep = tokens[i].clone();
+            }
+        } // TODO: check all cases when string or numeric representation is needed, now it is time to SLEEP
+
+        commands.push(final_token);
+    }
+    commands
 }
