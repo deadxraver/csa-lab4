@@ -1,6 +1,12 @@
 # My CPU Model & Shersh-lang
 
-## Shersh-lang documentation
+## PROGRESS:
+
+- formatter - **DONE** ✅
+- translator - **IN PROGRESS** 🕐
+- executor - **NOT STARTED** ❌
+
+## Shersh-lang Documentation
 
 ### Syntax
 
@@ -20,8 +26,8 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 
 ### Keywords
 
-* `пост` - constant / function declaration
-* `объяв` - same as `пост`, but expects args in square brackets
+* `пост` - constant declaration
+* `объяв` - function declaration, expects args in square brackets
 * `лок` - local variable declaration
 * `внутрь` - function, returns string line from `stdin`
 * `наружу` - function, takes variable amount of strings or chars in args, prints them in `stdout`
@@ -35,5 +41,38 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 * `=`/`равны` - inline function, takes 2 args, returns `1` if they are equal, `0` if not
 * `!=`/`неравны` - inline function, takes 2 of args, returns `0` if they are equal, `1` if not
 * `?`/`если` - inline function, if arg is truthy, executes statement after, else skips it
+* `<<`/`сдвг` - perform a left shift (if you need a right shift, just pass a negative number)
 
 _list will be updated_
+
+## Start
+
+### Installation
+
+If you don't have cargo, get it: `# apt install cargo -y`
+
+To build formater, translator and executor run `cargo build --profile release`
+
+After the compilation finishes you can find your executables here: `./target/release/`
+
+If you want to run tests, simply run `cargo test`
+
+### Building Your First Program
+
+#### Formater
+
+To see the formated code run `srs_format filename.srs`
+
+To inplace it add a `-i` (or `--inplace`) key: `srs_format -i filename.srs`
+
+Congrats! Now your code looks pretty
+
+#### Translator
+
+To build your program run `srs_translate filename.srs`
+
+Now you have a binary `filename.o` to be executed by an _executor_
+
+#### Executor
+
+_To be done yet_

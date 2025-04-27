@@ -22,7 +22,7 @@ pub fn rethink_newlines(input: String) -> String {
     }
     ret_str
 }
-
+#[allow(dead_code)]
 pub fn extract_strings(input: &str, storage: &mut Vec<String>) -> String {
     let mut new_str = String::new();
     let mut str_open: bool = false;
@@ -44,4 +44,3 @@ pub fn extract_strings(input: &str, storage: &mut Vec<String>) -> String {
     }
     new_str
 }
-

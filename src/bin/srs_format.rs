@@ -3,7 +3,8 @@ mod filereader;
 #[path = "../util/formater.rs"]
 mod formater;
 
-fn main() { // FIXME: args order plays role
+fn main() {
+    // FIXME: args order plays role
     let arg: String = std::env::args()
         .nth(1)
         .expect("Please enter key or filename");

@@ -10,7 +10,9 @@ mod srs_commands;
 mod tokenizer;
 
 fn main() {
-    let path = std::env::args().nth(1).expect("Please enter filename or `--help`");
+    let path = std::env::args()
+        .nth(1)
+        .expect("Please enter filename or `--help`");
     if path == "--help" || path == "-h" {
         print_help();
         std::process::exit(0);
