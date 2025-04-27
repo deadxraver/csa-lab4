@@ -1,2 +1,3 @@
 (пост input_text (внутрь))
 (наружу input_text '\n')
+

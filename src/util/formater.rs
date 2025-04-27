@@ -2,22 +2,20 @@ pub fn rethink_newlines(input: String) -> String {
     let mut new_str = String::new();
     let mut scopes: u8 = 0;
     for c in input.chars() {
-        if c == '\n' {
-            continue;
-        }
-        new_str.push(c);
-        if c == '(' {
-            scopes += 1;
-        } else if c == ')' {
-            scopes -= 1;
-            if scopes == 0 {
-                new_str.push('\n');
+        if c != '\n' {
+            new_str.push(c);
+            if c == '(' {
+                scopes += 1;
+            } else if c == ')' {
+                scopes -= 1;
+                if scopes == 0 {
+                    new_str.push('\n');
+                }
             }
         }
     }
     let spl = new_str.split("\n");
     let mut ret_str = String::new();
-    eprintln!("{new_str}"); // FIXME: "(...) (\n...)" loses '('
     for c in spl {
         ret_str += c.trim();
         ret_str.push('\n');
