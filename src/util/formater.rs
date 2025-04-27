@@ -20,7 +20,10 @@ pub fn rethink_newlines(input: String) -> String {
         ret_str += c.trim();
         ret_str.push('\n');
     }
-    ret_str
+    while ret_str.find("  ") != None {
+        ret_str = ret_str.replace("  ", "");
+    }
+    ret_str.replace("( ", "(").replace(" )", ")")
 }
 #[allow(dead_code)]
 pub fn extract_strings(input: &str, storage: &mut Vec<String>) -> String {
