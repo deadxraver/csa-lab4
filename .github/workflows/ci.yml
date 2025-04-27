@@ -19,5 +19,7 @@ jobs:
           apt install cargo -y
       - name: "Build"
         run: cargo build
-      - name: "Test"
-        run: cargo test
+      - name: "Unit Test"
+        run: cargo test --test unit
+      - name: "Golden Test"
+        run: cargo test --test golden
