@@ -28,7 +28,6 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 
 * `пост` - constant declaration
 * `объяв` - function declaration, expects args in square brackets
-* `лок` - local variable declaration
 * `внутрь` - function, returns string line from `stdin`
 * `наружу` - function, takes variable amount of strings or chars in args, prints them in `stdout`
 * `@хр` - annotation for tail recursion optimisation
@@ -39,11 +38,10 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 * `/`/`частн` - inline function, takes 2 integers and returns their division
 * `%`/`остат` - inline function, takes 2 integers and returns their remainder
 * `=`/`равны` - inline function, takes 2 args, returns `1` if they are equal, `0` if not
-* `!=`/`неравны` - inline function, takes 2 of args, returns `0` if they are equal, `1` if not
+* `!=`/`неравны` - inline function, takes 2 args, returns `0` if they are equal, `1` if not
+* `>`/`больше` - inline function, takes 2 args, returns `1` if first one is greater, `0` if not
 * `?`/`если` - inline function, if arg is truthy, executes statement after, else skips it
 * `<<`/`сдвг` - perform a left shift (if you need a right shift, just pass a negative number)
-
-_list will be updated_
 
 ## Start
 
