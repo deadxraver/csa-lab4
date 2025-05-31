@@ -19,6 +19,7 @@ pub enum KeyWords {
     FromMemory,      // function call / constant use
     StringUse,       // e.g. (print "something")
     ImmediateNumber, // e.g. (print 5)
+    ImmediateChar,   // e.g. (print '\n')
     ScopeStart,      // `(`
     ScopeEnd,        // `)`
     ArgScopeStart,   // `[`
@@ -29,6 +30,7 @@ pub enum KeyWords {
 pub enum TokenType {
     Keyword,
     Number,
+    Char,
     Const,
     FunctionCall,
     String,
@@ -64,26 +66,31 @@ pub fn parse_string(s: &str) -> KeyWords {
 }
 
 fn find_match_with_enum(s: &str) -> KeyWords {
-    match s {
-        "пост" => KeyWords::Const,
-        "объяв" => KeyWords::Function,
-        "внутрь" => KeyWords::Input,
-        "наружу" => KeyWords::Output,
-        "себя" => KeyWords::Recur,
-        "+" | "слож" => KeyWords::Plus,
-        "-" | "вычит" => KeyWords::Minus,
-        "*" | "произв" => KeyWords::Multiply,
-        "/" | "частн" => KeyWords::Divide,
-        "%" | "остат" => KeyWords::Remainder,
-        "=" | "равны" => KeyWords::Equal,
-        "!=" | "неравны" => KeyWords::NotEqual,
-        ">" | "больше" => KeyWords::Greater,
-        "?" | "если" => KeyWords::If,
-        "<<" | "сдвг" => KeyWords::Shift,
-        "(" => KeyWords::ScopeStart,
-        ")" => KeyWords::ScopeEnd,
-        "[" => KeyWords::ArgScopeStart,
-        "]" => KeyWords::ArgScopeEnd,
-        _ => KeyWords::None,
+    if s.starts_with("'") {
+        KeyWords::ImmediateChar
+    }
+    else {
+        match s {
+            "пост" => KeyWords::Const,
+            "объяв" => KeyWords::Function,
+            "внутрь" => KeyWords::Input,
+            "наружу" => KeyWords::Output,
+            "себя" => KeyWords::Recur,
+            "+" | "слож" => KeyWords::Plus,
+            "-" | "вычит" => KeyWords::Minus,
+            "*" | "произв" => KeyWords::Multiply,
+            "/" | "частн" => KeyWords::Divide,
+            "%" | "остат" => KeyWords::Remainder,
+            "=" | "равны" => KeyWords::Equal,
+            "!=" | "неравны" => KeyWords::NotEqual,
+            ">" | "больше" => KeyWords::Greater,
+            "?" | "если" => KeyWords::If,
+            "<<" | "сдвг" => KeyWords::Shift,
+            "(" => KeyWords::ScopeStart,
+            ")" => KeyWords::ScopeEnd,
+            "[" => KeyWords::ArgScopeStart,
+            "]" => KeyWords::ArgScopeEnd,
+            _ => KeyWords::None,
+        }
     }
 }

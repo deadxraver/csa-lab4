@@ -58,6 +58,7 @@ pub fn strings_to_enum(tokens: &Vec<String>) -> Vec<CompleteToken> {
             KeyWords::ScopeStart | KeyWords::ScopeEnd => TokenType::Scope,
             KeyWords::ArgScopeStart | KeyWords::ArgScopeEnd => TokenType::ArgScope,
             KeyWords::None => TokenType::None,
+            KeyWords::ImmediateChar => TokenType::Char,
         };
         let mut final_token = CompleteToken {
             token_type,
