@@ -30,7 +30,6 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 * `объяв` - function declaration, expects args in square brackets
 * `внутрь` - function, returns string line from `stdin`
 * `наружу` - function, takes variable amount of strings or chars in args, prints them in `stdout`
-* `@хр` - annotation for tail recursion optimisation
 * `себя` - recursively call function
 * `+`/`слож` - inline function, takes variable amount of integers and returns their sum
 * `-`/`вычит` - inline function, takes 2 integers and returns their subtraction
