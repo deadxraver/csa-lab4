@@ -45,7 +45,9 @@ pub fn strings_to_enum(tokens: &Vec<String>) -> Vec<CompleteToken> {
             | KeyWords::If
             | KeyWords::Shift => TokenType::Keyword,
             KeyWords::FromMemory => {
-                if commands[i - 1].token == KeyWords::Function || commands[i - 1].token == KeyWords::Const {
+                if commands[i - 1].token == KeyWords::Function
+                    || commands[i - 1].token == KeyWords::Const
+                {
                     TokenType::Declaration
                 } else if commands[i - 1].token == KeyWords::ScopeStart {
                     TokenType::FunctionCall
@@ -83,7 +85,7 @@ pub fn strings_to_enum(tokens: &Vec<String>) -> Vec<CompleteToken> {
             }
         } else if token_type == TokenType::Declaration {
             final_token.string_rep = tokens[i].clone();
-            final_token.token = commands[i - 1].token; 
+            final_token.token = commands[i - 1].token;
         }
 
         commands.push(final_token);

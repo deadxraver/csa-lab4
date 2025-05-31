@@ -68,8 +68,7 @@ pub fn parse_string(s: &str) -> KeyWords {
 fn find_match_with_enum(s: &str) -> KeyWords {
     if s.starts_with("'") {
         KeyWords::ImmediateChar
-    }
-    else {
+    } else {
         match s {
             "пост" => KeyWords::Const,
             "объяв" => KeyWords::Function,
