@@ -19,10 +19,18 @@ fn main() {
     }
     let contents = filereader::read_string_from(path);
     let tokens = tokenizer::tokenize(&contents);
+    let mut complete_tokens : Vec<Vec<srs_commands::CompleteToken>> = Vec::new();
+    for line in &tokens.0 {
+        complete_tokens.push(tokenizer::strings_to_enum(line));
+    }
+    
     // TODO: remove everything below this line, it is for testing components
     println!("Tokens:");
-    for line in tokens.0 {
-        println!("{:?}", line);
+    for line in complete_tokens {
+        println!("===  SEXPR  ===");
+        for token in line {
+            println!("{:?}", token);
+        }
     }
     println!("Strings to be replaced:");
     for string in tokens.1 {

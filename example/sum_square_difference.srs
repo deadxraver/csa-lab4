@@ -1,5 +1,5 @@
-@хр (объяв sum_of_squares [n] (если (= n 0) (+ 0) (+ (* n n) (recur (- n 1))))
-@хр (объяв sum [n] (если (= n 0) (+ 0) (+ n (recur (- n 1))))
+(объяв sum_of_squares [n] (если (= n 0) (+ 0) (+ (* n n) (recur (- n 1)))))
+(объяв sum [n] (если (= n 0) (+ 0) (+ n (recur (- n 1)))))
 
 (наружу (- (* (sum 10) (sum 10)) (sum_of_squares 10)))
 

@@ -25,7 +25,7 @@ pub fn tokenize(input: &str) -> (Vec<Vec<String>>, Vec<String>) {
     (lines, strings)
 }
 
-pub fn strings_to_enum(tokens: Vec<String>) -> Vec<CompleteToken> {
+pub fn strings_to_enum(tokens: &Vec<String>) -> Vec<CompleteToken> {
     let mut commands: Vec<CompleteToken> = Vec::with_capacity(tokens.len());
     let mut args: Vec<String> = Vec::new();
     for i in 0..tokens.len() {
