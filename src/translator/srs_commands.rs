@@ -41,6 +41,7 @@ pub enum TokenType {
 }
 
 #[derive(Debug)]
+#[derive(Clone)]
 pub struct CompleteToken {
     pub token_type: TokenType,
     pub token: KeyWords,

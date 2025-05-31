@@ -2,7 +2,41 @@ use crate::srs_commands::{parse_string, CompleteToken, KeyWords, TokenType};
 
 #[path = "../util/formater.rs"]
 mod formater;
+#[derive(Debug)]
+pub struct Program {
+    pub strings: Vec<String>,
+    pub functions: Vec<Vec<CompleteToken>>,
+    pub constants: Vec<Vec<CompleteToken>>,
+    pub code: Vec<Vec<CompleteToken>>,
+}
 
+pub fn arrange_tokens(tokens: Vec<Vec<CompleteToken>>, strings: Vec<String>) -> Program {
+    let mut program: Program = Program {
+        strings: strings,
+        functions: Vec::new(),
+        constants: Vec::new(),
+        code: Vec::new(),
+    };
+    for line in tokens {
+        let mut used = false;
+        for token in &line {
+            if token.token == KeyWords::Const {
+                program.constants.push(line.clone());
+                used = true;
+                break;
+            }
+            if token.token == KeyWords::Function {
+                program.functions.push(line.clone());
+                used = true;
+                break;
+            }
+        }
+        if !used {
+            program.code.push(line);
+        }
+    }
+    program
+}
 pub fn tokenize(input: &str) -> (Vec<Vec<String>>, Vec<String>) {
     let mut lines: Vec<Vec<String>> = Vec::new();
     let mut strings: Vec<String> = Vec::new();

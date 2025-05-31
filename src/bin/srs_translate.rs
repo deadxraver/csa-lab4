@@ -33,9 +33,10 @@ fn main() {
     for line in &tokens.0 {
         complete_tokens.push(tokenizer::strings_to_enum(line));
     }
+    let program = tokenizer::arrange_tokens(complete_tokens.clone(), tokens.1.clone());
     if verbose {
         println!("Tokens:");
-        for line in complete_tokens {
+        for line in &complete_tokens {
             println!("===  SEXPR  ===");
             for token in line {
                 println!("{:?}", token);
@@ -44,6 +45,19 @@ fn main() {
         println!("Strings to be replaced:");
         for string in tokens.1 {
             println!("{:?}", string);
+        }
+        println!("===  FINAL PROGRAM  ===");
+        println!("Strings:");
+        for string in program.strings {
+            println!("{:?}", string);
+        }
+        println!("Functions:");
+        for function in program.functions {
+            println!("{:?}", function);
+        }
+        println!("Code:");
+        for code in program.code {
+            println!("{:?}", code);
         }
     }
 }
