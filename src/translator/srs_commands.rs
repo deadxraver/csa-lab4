@@ -5,7 +5,6 @@ pub enum KeyWords {
     Function,        // `объяв`
     Input,           // `внутрь`
     Output,          // `наружу`
-    TailRec,         // `@хр`
     Recur,           // `себя`
     Plus,            // `+`/`слож`
     Minus,           // `-`/`вычит`
@@ -36,7 +35,6 @@ pub enum TokenType {
     Scope,
     ArgScope,
     None,
-    Annotation,
     Declaration,
 }
 
@@ -71,7 +69,6 @@ fn find_match_with_enum(s: &str) -> KeyWords {
         "объяв" => KeyWords::Function,
         "внутрь" => KeyWords::Input,
         "наружу" => KeyWords::Output,
-        "@хр" => KeyWords::TailRec,
         "себя" => KeyWords::Recur,
         "+" | "слож" => KeyWords::Plus,
         "-" | "вычит" => KeyWords::Minus,

@@ -18,18 +18,17 @@ mod unit {
 
     #[test]
     fn test_command_parser() {
-        let source = ["+", "слож", "@хр", "(", "function", "78", "`unknown`", "&1"];
+        let source = ["+", "слож", "(", "function", "78", "`unknown`", "&1"];
         let expect = [
             KeyWords::Plus,
             KeyWords::Plus,
-            KeyWords::TailRec,
             KeyWords::ScopeStart,
             KeyWords::FromMemory,
             KeyWords::ImmediateNumber,
             KeyWords::None,
             KeyWords::StringUse,
         ];
-        let mut result = [KeyWords::None; 8];
+        let mut result = [KeyWords::None; 7];
         for i in 0..source.len() {
             result[i] = crate::srs_commands::parse_string(source[i]);
         }

@@ -31,9 +31,8 @@ pub fn strings_to_enum(tokens: Vec<String>) -> Vec<CompleteToken> {
     for i in 0..tokens.len() {
         let mut keyword = parse_string(&tokens[i]);
         let token_type: TokenType = match keyword {
-            KeyWords::Const | KeyWords::Function => TokenType::Declaration,
+            KeyWords::Const | KeyWords::Function => TokenType::Keyword,
             KeyWords::Input | KeyWords::Output => TokenType::FunctionCall,
-            KeyWords::TailRec => TokenType::Annotation,
             KeyWords::Recur => TokenType::FunctionCall,
             KeyWords::Plus
             | KeyWords::Minus
@@ -46,8 +45,7 @@ pub fn strings_to_enum(tokens: Vec<String>) -> Vec<CompleteToken> {
             | KeyWords::If
             | KeyWords::Shift => TokenType::Keyword,
             KeyWords::FromMemory => {
-                if commands[i - 1].token_type == TokenType::Declaration {
-                    keyword = KeyWords::Function; // TODO: save function name
+                if commands[i - 1].token == KeyWords::Function {
                     TokenType::Declaration
                 } else if commands[i - 1].token == KeyWords::ScopeStart {
                     TokenType::FunctionCall
