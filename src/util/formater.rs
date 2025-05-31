@@ -21,7 +21,7 @@ pub fn rethink_newlines(input: String) -> String {
         ret_str.push('\n');
     }
     while ret_str.find("  ") != None {
-        ret_str = ret_str.replace("  ", "");
+        ret_str = ret_str.replace("  ", " ");
     }
     ret_str.replace("( ", "(").replace(" )", ")")
 }
