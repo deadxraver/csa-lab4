@@ -8,6 +8,8 @@ mod filereader;
 mod srs_commands;
 #[path = "../translator/tokenizer.rs"]
 mod tokenizer;
+#[path = "../util/pretty_printer.rs"]
+mod pretty_printer;
 
 fn main() {
     let mut verbose = false;
@@ -35,17 +37,6 @@ fn main() {
     }
     let program = tokenizer::arrange_tokens(complete_tokens.clone(), tokens.1.clone());
     if verbose {
-        println!("Tokens:");
-        for line in &complete_tokens {
-            println!("===  SEXPR  ===");
-            for token in line {
-                println!("{:?}", token);
-            }
-        }
-        println!("Strings to be replaced:");
-        for string in tokens.1 {
-            println!("{:?}", string);
-        }
         println!("===  FINAL PROGRAM  ===");
         println!("Strings:");
         for string in program.strings {
@@ -53,11 +44,11 @@ fn main() {
         }
         println!("Functions:");
         for function in program.functions {
-            println!("{:?}", function);
+            pretty_printer::print_complete_tokens(function.clone());
         }
         println!("Code:");
         for code in program.code {
-            println!("{:?}", code);
+            pretty_printer::print_complete_tokens(code.clone());
         }
     }
 }

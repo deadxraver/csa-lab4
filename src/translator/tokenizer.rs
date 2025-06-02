@@ -62,7 +62,19 @@ pub fn tokenize(input: &str) -> (Vec<Vec<String>>, Vec<String>) {
 pub fn strings_to_enum(tokens: &Vec<String>) -> Vec<CompleteToken> {
     let mut commands: Vec<CompleteToken> = Vec::with_capacity(tokens.len());
     let mut args: Vec<String> = Vec::new();
+    let mut argscope_started = false;
     for i in 0..tokens.len() {
+        if argscope_started && tokens[i] != "]" {
+            args.push(tokens[i].clone());
+            let final_token = CompleteToken {
+                token_type: TokenType::None,
+                token: KeyWords::None,
+                numeric_rep: -1,
+                string_rep: tokens[i].clone(),
+            };
+            commands.push(final_token);
+            continue;
+        }
         let mut keyword = parse_string(&tokens[i]);
         let token_type: TokenType = match keyword {
             KeyWords::Const | KeyWords::Function => TokenType::Keyword,
@@ -92,7 +104,14 @@ pub fn strings_to_enum(tokens: &Vec<String>) -> Vec<CompleteToken> {
             KeyWords::StringUse => TokenType::String,
             KeyWords::ImmediateNumber => TokenType::Number,
             KeyWords::ScopeStart | KeyWords::ScopeEnd => TokenType::Scope,
-            KeyWords::ArgScopeStart | KeyWords::ArgScopeEnd => TokenType::ArgScope,
+            KeyWords::ArgScopeStart => {
+                argscope_started = true;
+                TokenType::ArgScope
+            },
+            KeyWords::ArgScopeEnd => {
+                argscope_started = false;
+                TokenType::ArgScope
+            },
             KeyWords::None => TokenType::None,
             KeyWords::ImmediateChar => TokenType::Char,
         };
