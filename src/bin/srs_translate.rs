@@ -46,6 +46,10 @@ fn main() {
         for function in program.functions {
             pretty_printer::print_complete_tokens(function.clone());
         }
+        println!("Constants:");
+        for constant in program.constants {
+            pretty_printer::print_complete_tokens(constant.clone());
+        }
         println!("Code:");
         for code in program.code {
             pretty_printer::print_complete_tokens(code.clone());
