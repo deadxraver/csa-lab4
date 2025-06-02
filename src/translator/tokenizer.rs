@@ -75,7 +75,7 @@ pub fn strings_to_enum(tokens: &Vec<String>) -> Vec<CompleteToken> {
             commands.push(final_token);
             continue;
         }
-        let mut keyword = parse_string(&tokens[i]);
+        let keyword = parse_string(&tokens[i]);
         let token_type: TokenType = match keyword {
             KeyWords::Const | KeyWords::Function => TokenType::Keyword,
             KeyWords::Input | KeyWords::Output => TokenType::FunctionCall,

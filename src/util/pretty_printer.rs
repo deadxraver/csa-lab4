@@ -1,4 +1,3 @@
-use crate::pretty_printer;
 use crate::srs_commands::CompleteToken;
 
 pub fn print_complete_token(token: CompleteToken) {
