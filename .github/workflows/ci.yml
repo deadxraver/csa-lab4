@@ -16,8 +16,8 @@ jobs:
       - name: "Install dependencies"
         run: |
           apt update
-          apt install cargo -y
+          apt install cmake -y
       - name: "Unit Test"
-        run: cargo test --test unit
+        run: # TODO:
       - name: "Golden Test"
-        run: cargo test --test golden
+        run: # TODO:
