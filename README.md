@@ -1,14 +1,31 @@
-# My CPU Model & Shersh-lang
+# My CPU Model &  & Shersh-lang (is suspended)
 
 ## PROGRESS:
 
-- formatter - **DONE** ✅
 - translator - **IN PROGRESS** 🕐
 - executor - **NOT STARTED** ❌
 
-## Shersh-lang Documentation
+## Alpha-Shersh-Murderer (ASM)
 
-### Syntax
+### Documentation
+
+Alpha-Shersh-Murderer (ASM) is a low-level f18a-based programming language.
+
+#### Syntax Example
+
+TODO:
+
+#### Keywords
+
+TODO:
+
+## Shersh-lang (is not currently developing - see previous commits)
+
+### Documentation
+
+Shersh-lang (SRS) is a high-level lisp-based syntax programming language, which is translated into Alpha-Shersh-Murderer (ASM).
+
+#### Syntax Example
 
 1. `(<function> <arg1> <arg2>...<argn>)`
 2. `(объяв <name> [<arg1> <arg2>...<argn>] (<function> <farg1> <farg2>...<fargn>))`
@@ -24,7 +41,7 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 (print_plus_one 5)
 ```
 
-### Keywords
+#### Keywords
 
 * `пост` - constant declaration
 * `объяв` - function declaration, expects args in square brackets
@@ -42,9 +59,9 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 * `?`/`если` - inline function, if arg is truthy, executes statement after, else skips it
 * `<<`/`сдвг` - perform a left shift (if you need a right shift, just pass a negative number)
 
-## Start
+### Start
 
-### Installation
+#### Installation
 
 If you don't have cargo, get it: `# apt install cargo -y`
 
@@ -54,9 +71,9 @@ After the compilation finishes you can find your executables here: `./target/rel
 
 If you want to run tests, simply run `cargo test`
 
-### Building Your First Program
+#### Building Your First Program
 
-#### Formater
+##### Formater
 
 To see the formated code run `srs_format filename.srs`
 
@@ -64,12 +81,12 @@ To inplace it add a `-i` (or `--inplace`) key: `srs_format -i filename.srs`
 
 Congrats! Now your code looks pretty
 
-#### Translator
+##### Translator
 
 To build your program run `srs_translate filename.srs`
 
 Now you have a binary `filename.o` to be executed by an _executor_
 
-#### Executor
+##### Executor
 
 _To be done yet_
