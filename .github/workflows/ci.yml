@@ -17,6 +17,12 @@ jobs:
         run: |
           apt update
           apt install cmake -y
+      - name: "Build"
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
       - name: "Unit Test"
         run: # TODO:
       - name: "Golden Test"
