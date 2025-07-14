@@ -1,23 +1,49 @@
-# My CPU Model &  & Shersh-lang (is suspended)
-
-## PROGRESS:
-
-- translator - **IN PROGRESS** 🕐
-- executor - **NOT STARTED** ❌
+# My CPU Model & Alpha-Shersh-Murderer & Shersh-lang (is suspended)
 
 ## Alpha-Shersh-Murderer (ASM)
 
 ### Documentation
 
-Alpha-Shersh-Murderer (ASM) is a low-level f18a-based programming language.
+Alpha-Shersh-Murderer (ASM) is a low-level programming language using f18a-based ISA with a little bit of fun.
+ISA offers data manipulations using data and return stacks + 2 registers.
+Macro is not supported (maybe one day but not rn).
 
 #### Syntax Example
 
-TODO:
+Pretty regular asm syntax
+1. `add` - regular syntax no arg instruction
+2. `push_imm 0xDEAD_1234` - regular syntax one arg instruction
+3. `падика` - roflosyntax no arg instruction
+
+```asm
+секция .данные
+
+input_addr:     сд 0x00
+output_addr:    сд 0x04
+
+
+секция .текст
+
+старт:
+  положи        0x1234
+  ; TODO: finish example code after finishing with syntax
+  останов
+```
 
 #### Keywords
 
-TODO:
+##### Non-Instruction Keywords:
+* `;` - comment start
+* `section` (`секция`) - sets up a code section, can be `.text` (`.текст`) for code, `.data` (`.данные`) for data
+* `.org` (`.аддр`) - sets up start address for section
+* `db` (`бд`), `dw` (`сд`) - define data size in `.data` (`.данные`) section (byte and word respectively)
+* `main` (`старт`) - label name for entrance point (like `_start` in normal languages)
+
+##### Instruction Keywords:
+* `push_imm` (`положи`) - one arg command, pushes the immediate value to the data stack
+_List will be updated in time_
+* `push_rand` (`падика`) - push random word to stack
+* `halt` (`останов`) - halt the machine
 
 ## Shersh-lang (is not currently developing - see previous commits)
 
