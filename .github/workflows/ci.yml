@@ -24,6 +24,6 @@ jobs:
           cmake ..
           cmake --build .
       - name: "Unit Test"
-        run: # TODO:
+        run: test # TODO:
       - name: "Golden Test"
-        run: # TODO:
+        run: test # TODO:
