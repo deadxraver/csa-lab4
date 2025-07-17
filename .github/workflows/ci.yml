@@ -16,7 +16,7 @@ jobs:
       - name: "Install dependencies"
         run: |
           apt update
-          apt install cmake -y
+          apt install cmake clang -y
       - name: "Build"
         run: |
           mkdir build
