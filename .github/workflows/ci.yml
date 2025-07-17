@@ -23,7 +23,6 @@ jobs:
           cd build
           cmake ..
           cmake --build .
-      - name: "Unit Test"
-        run: test # TODO:
-      - name: "Golden Test"
-        run: test # TODO:
+      - name: "Test"
+        run: ctest
+
