@@ -25,9 +25,34 @@ output_addr:    сд 0x04
 секция .текст
 
 старт:
-  положи        0x1234
-  ; TODO: finish example code after finishing with syntax
-  останов
+  положи        0x1234        ; положили такие 0x1234 на стек
+  падика                      ; сгенерировали такие рандомное число и положили на стек
+  сложи                       ; сложили такие 0x1234 и рандомное число
+  положи        output_addr   ; положили такие указатель на адрес вывода
+  подтяни                     ; подтянули такие по указателю адрес вывода
+  парень_достань_мне_в_а      ; положили такие этот адрес в регистр а
+  сохрани_по_а                ; записали такие результат сложения в вывод
+  останов                     ; остановили такие поцессор
+```
+
+```asm
+section .data
+
+input_addr:     dw 0x00
+output_addr:    dw 0x04
+
+
+section .text
+
+main:
+  push_imm      0x1234        ; stack.push(0x1234)
+  push_rand                   ; stack.push(rand())
+  add                         ; stack.push(0x1234 + rand())
+  push_imm      output_addr   ; stack.push(&stdout)
+  fetch                       ; stack.push(stdout)
+  pop_a                       ; a = stdout
+  store_a                     ; print(0x1234 + rand())
+  halt                        ; halt the processor
 ```
 
 #### Keywords
@@ -40,8 +65,42 @@ output_addr:    сд 0x04
 * `main` (`старт`) - label name for entrance point (like `_start` in normal languages)
 
 ##### Instruction Keywords:
-* `push_imm` (`положи`) - one arg command, pushes the immediate value to the data stack
-_List will be updated in time_
+###### Register-to-Stack:
+* `push_imm` (`толкни`) - one arg command, pushes the immediate value to the data stack
+* `push_a` (`толкни_а`) - push value from register A to the data stack
+* `push_b` (`толкни_б`) - push value from register B to the data stack
+* `pop_a` (`парень_достань_мне_в_а`) - pop value from data stack and put it in register A
+* `pop_b` (`достань_в_б`) - pop value from data stack and put it in register B
+* `fetch_a` (`подтяни_а`) - push value to data stack from memory by address in register A
+* `fetch_b` (`подтяни_б`) - push value to data stack from memory by address in register B
+* `fetch` (`подтяни`) - push value to data stack from memory by address on data stack top
+* `store_a` (`сохрани_по_а`) - pop value from data stack and store it by address in register A
+* `store_b` (`сохрани_по_б`) - pop value from data stack and store it by address in register B
+###### Stack-to-Stack:
+* `dup` - duplicate value on data stack
+* `d2r` - pop value from data stack and push it to return stack
+* `r2d` - pop value from return stack and push it to data stack
+* `swp` - swap top 2 values on data stack
+###### ALU Operations:
+* `add` - pop 2 values from data stack and push their sum
+* `sub` - pop 2 values from data stack and push their subtraction
+* `mul` - pop 2 values from data stack and push their product
+* `div` - pop 2 values from data stack and push their division result
+* `and` - pop 2 values from data stack and push their bitwise AND result
+* `or` - pop 2 values from data stack and push their bitwise OR result
+* `xor` - pop 2 values from data stack and push their bitwise XOR result
+* `not` - pop 1 value from data stack and push its bitwise NOT
+* `cmp` - set flags on the result of subtraction of top 2 values but not save the result and pop values
+###### Control Flow:
+* `call` - call subroutine
+* `call_top` - jump to the address stored on top of the data stack and store return address on return stack
+* `beqz` - jump if zero (zero flag set)
+* `bnz` - jump if not zero (zero flag not set)
+* `bn` - branch if negative (negative flag set)
+* `bp` - branch if positive (negative and zero flags not set)
+* `ret` - return from subroutine
+_Control flow is being designed_
+###### Other:
 * `push_rand` (`падика`) - push random word to stack
 * `halt` (`останов`) - halt the machine
 
