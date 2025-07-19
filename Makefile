@@ -15,3 +15,6 @@ build: prepare_dir
 test: build
 	cd $(BUILD_DIR) && ctest
 
+clean:
+	rm -rf $(BUILD_DIR)
+
