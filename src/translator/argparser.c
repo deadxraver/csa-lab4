@@ -1,6 +1,6 @@
-#include "translator.h"
+#include "argparser.h"
 
-void print_message(struct ParseResults parse_results, char* argv) {
+void print_message(struct ParseResults parse_results, char* argv[]) {
   if (parse_results.error_code == NO_ERROR) {
     return ;
   }
