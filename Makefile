@@ -6,7 +6,7 @@ all: test
 	@echo 'Success'
 
 prepare_dir: src
-	test $(BUILD_DIR) || mkdir $(BUILD_DIR)
+	test -e $(BUILD_DIR) || mkdir $(BUILD_DIR)
 	cd $(BUILD_DIR) && cmake ..
 
 build: prepare_dir
@@ -17,4 +17,3 @@ test: build
 
 clean:
 	rm -rf $(BUILD_DIR)
-

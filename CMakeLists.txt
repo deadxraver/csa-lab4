@@ -4,7 +4,8 @@ project(AlphaShershMurderer)
 
 # executables          vvvvvvvvvvvvvv
 
-add_executable(asm-compile src/translator.c)            # translator binary
+add_executable(asm-compile
+    src/translator.c src/translator/argparser.c)        # translator binary
 
 add_executable(test1 test/translator_argparser.c)       # test 1
 
