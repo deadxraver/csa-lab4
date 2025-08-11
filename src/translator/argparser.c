@@ -14,3 +14,10 @@ void print_message(struct ParseResults parse_results, char* argv[]) {
   }
   // TODO: other cases
 }
+
+struct ParseResults parse_args(int argc, char* argv[]) {
+  if (argc == 1) {
+    return (struct ParseResults) { .error_code = NO_ARGS_ERROR };
+  }
+  return (struct ParseResults) { /* заглушка */ };
+}
