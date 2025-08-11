@@ -5,7 +5,6 @@ on: [push]
 
 env:
   GH_TOKEN: ${{github.token}}
-  CARGO_TERM_COLOR: always
 
 jobs:
   build-test:
@@ -21,4 +20,3 @@ jobs:
         run: make build
       - name: "Test"
         run: make test
-
