@@ -3,7 +3,7 @@
 BUILD_DIR=build
 
 all: test
-	@echo 'Success'
+	@echo 'Success, binaries can be found in' $(BUILD_DIR)/ 'directory.'
 
 prepare_dir: src
 	test -e $(BUILD_DIR) || mkdir $(BUILD_DIR)
