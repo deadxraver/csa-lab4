@@ -12,7 +12,7 @@ void print_message(struct ParseResults parse_results, char* argv[]) {
     fprintf(stderr, "Unknown arg: %s\n", argv[parse_results.pos]);
     return ;
   }
-  if (parse_results.error_code == NO_SUCH_FILE) {
+  if (parse_results.error_code == NO_SUCH_FILE_ERROR) {
     fprintf(stderr, "No such file: %s\n", argv[parse_results.pos]);
     return ;
   }
