@@ -19,6 +19,6 @@ int main() {
   assert(expect.verbose == result.verbose);
   assert(expect.preprocess_only == result.preprocess_only);
   assert(expect.help_message_only == result.help_message_only);
-  assert(expect.filename == result.filename);
+  assert(strcmp(expect.filename, result.filename) == 0);
   return 0;
 }

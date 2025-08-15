@@ -25,13 +25,13 @@ struct ParseResults parse_args(int argc, char* argv[]) {
   }
   struct ParseResults result = DEFAULT_PARSE_RESULTS;
   for (size_t i = 1; i < argc; ++i) {
-    if (strcmp("--help", argv[i])) {
+    if (!strcmp("--help", argv[i])) {
       result.help_message_only = true;
     }
-    else if (strcmp("--verbose", argv[i])) {
+    else if (!strcmp("--verbose", argv[i])) {
       result.verbose = true;
     }
-    else if (strcmp("--preprocess-only", argv[i])) {
+    else if (!strcmp("--preprocess-only", argv[i])) {
       result.preprocess_only = true;
     }
     else if (argv[i][0] == '-' || result.filename != NULL) {
