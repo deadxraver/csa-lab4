@@ -43,5 +43,8 @@ struct ParseResults parse_args(int argc, char* argv[]) {
       result.filename = argv[i];
     }
   }
+  if (result.filename == NULL) {
+    result.error_code = NO_FILE_ERROR;
+  }
   return result;
 }
