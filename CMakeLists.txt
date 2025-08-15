@@ -9,8 +9,10 @@ add_executable(asm-compile
 
 add_executable(test1 test/translator_argparser_success.c src/translator/argparser.c)       # test 1
 
-#add_executable(test2 test/translator_argparser_error.c)
+add_executable(test2 test/translator_argparser_error.c src/translator/argparser.c)
 
 enable_testing()
 
 add_test(TEST1 test1)
+
+add_test(TEST2 test2)
