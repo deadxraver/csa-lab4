@@ -1,6 +1,14 @@
 #include "argparser.h"
 
+static void print_help_message() {
+  // TODO:
+}
+
 void print_message(struct ParseResults parse_results, char* argv[]) {
+  if (parse_results.help_message_only) {
+    print_help_message();
+    return ;
+  }
   if (parse_results.error_code == NO_ERROR) {
     return ;
   }
@@ -27,6 +35,7 @@ struct ParseResults parse_args(int argc, char* argv[]) {
   for (size_t i = 1; i < argc; ++i) {
     if (!strcmp("--help", argv[i])) {
       result.help_message_only = true;
+      return result;
     }
     else if (!strcmp("--verbose", argv[i])) {
       result.verbose = true;
@@ -37,10 +46,11 @@ struct ParseResults parse_args(int argc, char* argv[]) {
     else if (argv[i][0] == '-' || result.filename != NULL) {
       result.error_code = UNKNOWN_ARG_ERROR;
       result.pos = i;
-      break;
+      return result;
     }
     else {
       result.filename = argv[i];
+      result.pos = i;
     }
   }
   if (result.filename == NULL) {
