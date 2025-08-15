@@ -1,3 +1,7 @@
+#ifndef TRANSLATOR_ARGPARSER_H
+
+#define TRANSLATOR_ARGPARSER_H
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -18,15 +22,10 @@ struct ParseResults {
   char* filename;
 };
 
-const struct ParseResults DEFAULT_PARSE_RESULTS = (ParseResults) {
-  .error_code = NO_ERROR,
-  .pos = -1,
-  .verbose = false,
-  .preprocess_only = false,
-  .help_message_only = false,
-  .filename = NULL,
-}
+#define DEFAULT_PARSE_RESULTS (struct ParseResults) {.error_code = NO_ERROR,.pos = 0,.verbose = false,.preprocess_only = false,.help_message_only = false,.filename = NULL,}
 
 void print_message(struct ParseResults parse_results, char* argv[]);
 
 struct ParseResults parse_args(int argc, char* argv[]);
+
+#endif // !TRANSLATOR_ARGPARSER_H
