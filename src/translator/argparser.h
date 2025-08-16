@@ -2,8 +2,8 @@
 
 #define TRANSLATOR_ARGPARSER_H
 
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 
 enum ErrorCode {
@@ -22,10 +22,14 @@ struct ParseResults {
   char* filename;
 };
 
-#define DEFAULT_PARSE_RESULTS (struct ParseResults) {.error_code = NO_ERROR,.pos = 0,.verbose = false,.preprocess_only = false,.help_message_only = false,.filename = NULL,}
+#define DEFAULT_PARSE_RESULTS                                                     \
+  (struct ParseResults) {                                                         \
+    .error_code = NO_ERROR, .pos = 0, .verbose = false, .preprocess_only = false, \
+    .help_message_only = false, .filename = NULL,                                 \
+  }
 
 void print_message(struct ParseResults parse_results, char* argv[]);
 
 struct ParseResults parse_args(int argc, char* argv[]);
 
-#endif // !TRANSLATOR_ARGPARSER_H
+#endif  // !TRANSLATOR_ARGPARSER_H
