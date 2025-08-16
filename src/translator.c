@@ -16,7 +16,16 @@ check_err:
     parse_results.error_code = NO_SUCH_FILE_ERROR;
     goto check_err;
   }
-
+  fseek(input_file, 0L, SEEK_END);
+  size_t sz = ftell(input_file);
+  rewind(input_file);
+  char* s = (char*)malloc(sizeof(char) * sz);
+  if (fgets(s, sz, input_file) == NULL) {
+    fprintf(stderr, "Error when reading from file\n");
+    return READ_ERROR;
+  }
+  // free everything
   fclose(input_file);
+  free(s);
   return 0;
 }

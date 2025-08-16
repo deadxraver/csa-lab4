@@ -11,6 +11,7 @@ enum ErrorCode {
   NO_FILE_ERROR,
   UNKNOWN_ARG_ERROR,
   NO_SUCH_FILE_ERROR,
+  READ_ERROR,
 };
 
 struct ParseResults {
