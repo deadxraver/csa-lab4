@@ -5,7 +5,8 @@ project(AlphaShershMurderer)
 # executables          vvvvvvvvvvvvvv
 
 add_executable(asm-compile
-    src/translator.c src/translator/argparser.c)        # translator binary
+    src/translator.c 
+    src/translator/argparser.c src/translator/tokenizer.c)        # translator binary
 
 add_executable(test1 test/translator_argparser_success.c src/translator/argparser.c)       # test 1
 
