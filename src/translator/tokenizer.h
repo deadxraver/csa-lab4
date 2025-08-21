@@ -65,6 +65,11 @@ struct Section {
   size_t cells_length;
 };
 
-struct Section* tokenize_code(char* text, size_t* sz);
+struct SectionCollection {
+  struct Section* sections;
+  size_t sz;
+};
 
-void free_sections(struct Section* sections, size_t sz);
+struct SectionCollection* tokenize_code(char* text);
+
+void free_sections(struct SectionCollection* sections);
