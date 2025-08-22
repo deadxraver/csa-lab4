@@ -1,7 +1,10 @@
 #include "argparser.h"
 
-static void print_help_message() {
-  // TODO:
+static void print_help_message(char* argv[]) {
+  printf("Usage:\n%s [ --help | --verbose | --preprocess-only ] file.asm\n", argv[0]);
+  printf("\t--help || Print this help message\n");
+  printf("\t--verbose || Print verbose info through compilation\n");
+  printf("\t--preprocess-only || Only preprocess code and print it in stdin, do not compile\n");
 }
 
 void print_message(struct ParseResults parse_results, char* argv[]) {
