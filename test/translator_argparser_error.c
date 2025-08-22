@@ -1,12 +1,13 @@
 #include <assert.h>
+
 #include "../src/translator/argparser.h"
 
 int main() {
   int argc = 3;
   char* argv[3] = {
-    "asm-compile",
-    "--verbose",
-    "--preprocess-only",
+      "asm-compile",
+      "--verbose",
+      "--preprocess-only",
   };
   struct ParseResults expect = DEFAULT_PARSE_RESULTS;
   expect.error_code = NO_FILE_ERROR;
