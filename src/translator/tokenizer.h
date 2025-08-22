@@ -1,3 +1,6 @@
+#ifndef TOKENIZER_H
+#define TOKENIZER_H
+
 #include <malloc.h>
 #include <stdint.h>
 
@@ -73,3 +76,5 @@ struct SectionCollection {
 struct SectionCollection* tokenize_code(char* text);
 
 void free_sections(struct SectionCollection* sections);
+
+#endif //!TOKENIZER_H
