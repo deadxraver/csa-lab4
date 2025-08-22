@@ -9,7 +9,7 @@ static void print_help_message(char* argv[]) {
 
 void print_message(struct ParseResults parse_results, char* argv[]) {
   if (parse_results.help_message_only) {
-    print_help_message();
+    print_help_message(argv);
     return;
   }
   if (parse_results.error_code == NO_ERROR) {
