@@ -11,6 +11,7 @@ Macro is not supported (maybe one day but not rn).
 #### Syntax Example
 
 Pretty regular asm syntax
+
 1. `add` - regular syntax no arg instruction
 2. `push_imm 0xDEAD_1234` - regular syntax one arg instruction
 3. `падика` - roflosyntax no arg instruction
@@ -57,15 +58,18 @@ main:
 
 #### Keywords
 
-##### Non-Instruction Keywords:
+##### Non-Instruction Keywords
+
 * `;` - comment start
 * `section` (`секция`) - sets up a code section, can be `.text` (`.текст`) for code, `.data` (`.данные`) for data
 * `.org` (`.аддр`) - sets up start address for section
 * `db` (`бд`), `dw` (`сд`) - define data size in `.data` (`.данные`) section (byte and word respectively)
 * `main` (`старт`) - label name for entrance point (like `_start` in normal languages)
 
-##### Instruction Keywords:
-###### Register-to-Stack:
+##### Instruction Keywords
+
+###### Register-to-Stack
+
 * `push_imm` (`толкни`) - one arg command, pushes the immediate value to the data stack
 * `push_a` (`толкни_а`) - push value from register A to the data stack
 * `push_b` (`толкни_б`) - push value from register B to the data stack
@@ -76,12 +80,16 @@ main:
 * `fetch` (`подтяни`) - push value to data stack from memory by address on data stack top
 * `store_a` (`сохрани_по_а`) - pop value from data stack and store it by address in register A
 * `store_b` (`сохрани_по_б`) - pop value from data stack and store it by address in register B
-###### Stack-to-Stack:
+
+###### Stack-to-Stack
+
 * `dup` - duplicate value on data stack
 * `d2r` - pop value from data stack and push it to return stack
 * `r2d` - pop value from return stack and push it to data stack
 * `swp` - swap top 2 values on data stack
-###### ALU Operations:
+
+###### ALU Operations
+
 * `add` - pop 2 values from data stack and push their sum
 * `sub` - pop 2 values from data stack and push their subtraction
 * `mul` - pop 2 values from data stack and push their product
@@ -91,7 +99,9 @@ main:
 * `xor` - pop 2 values from data stack and push their bitwise XOR result
 * `not` - pop 1 value from data stack and push its bitwise NOT
 * `cmp` - set flags on the result of subtraction of top 2 values but not save the result and pop values
-###### Control Flow:
+
+###### Control Flow
+
 * `call` - call subroutine
 * `call_top` - jump to the address stored on top of the data stack and store return address on return stack
 * `beqz` - jump if zero (zero flag set)
@@ -100,7 +110,9 @@ main:
 * `bp` - branch if positive (negative and zero flags not set)
 * `ret` - return from subroutine
 _Control flow is being designed_
-###### Other:
+
+###### Other
+
 * `push_rand` (`падика`) - push random word to stack
 * `halt` (`останов`) - halt the machine
 
