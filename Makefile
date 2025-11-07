@@ -13,7 +13,7 @@ build: prepare_dir
 	cd $(BUILD_DIR) && cmake --build .
 
 test: build
-	cd $(BUILD_DIR) && (ctest || ctest --rerun-failed --output-on-failure)
+	cd $(BUILD_DIR) && (ctest --output-on-failure)
 
 clean:
 	rm -rf $(BUILD_DIR)
