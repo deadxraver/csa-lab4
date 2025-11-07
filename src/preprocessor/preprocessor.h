@@ -9,6 +9,7 @@
 struct StringNode {
   char str[MAX_STR];
   struct StringNode* next;
+  struct StringNode* prev;
 };
 
 /**
