@@ -4,8 +4,6 @@
 
 #define MAX_STR 64
 
-#include <malloc.h>
-
 struct StringNode {
   char str[MAX_STR];
   struct StringNode* next;
