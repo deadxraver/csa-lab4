@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include "translator/argparser.h"
+#include "preprocessor/preprocessor.h"
 
 int main(int argc, char* argv[]) {
   struct ParseResults parse_results = parse_args(argc, argv);
@@ -24,8 +25,15 @@ check_err:
     fprintf(stderr, "Error when reading from file\n");
     return READ_ERROR;
   }
+  char* ps = preprocess_code(s);
+  if (parse_results.preprocess_only) {
+    printf("%s\n", ps);
+    goto free_time;
+  }
   // free everything
+free_time:
   fclose(input_file);
   free(s);
+  free(ps);
   return 0;
 }
