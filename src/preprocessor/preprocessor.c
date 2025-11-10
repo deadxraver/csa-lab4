@@ -28,6 +28,20 @@ static struct StringNode* detach_node(struct StringNode* node) {
 }
 
 /**
+ * Remove all trailing and leading spaces from str
+*/
+void trim(char str[MAX_STR]) {
+  size_t i;
+  for (i = 0; (str[i] == ' ' || str[i] == '\t') && i < MAX_STR; ++i); // skip leading whitespaces
+  if (i == MAX_STR - 1) // smth's wrong
+    return ;
+  if (i != 0)
+    strcpy(str, str + i);
+  for (i = strlen(str) - 1; (i == ' ' || i == '\t') && i > 0; --i); // skip trailing whitespaces
+  str[i] = 0;
+}
+
+/**
  * Split given string into linked nodes and return head.
  * Break char is \n.
 */
@@ -35,7 +49,7 @@ struct StringNode* split_code(char* code) {
   struct StringNode* list = (struct StringNode*) malloc(sizeof(struct StringNode));
   size_t big_i = 0;
   size_t i;
-  memset(list->str, 0, MAX_STR);
+  memset(list->str, 0, MAX_STR); // first node is empty so that head is never pointing to invalid memory segment
   list->next = (struct StringNode*) malloc(sizeof(struct StringNode));
   memset(list->next->str, 0, MAX_STR);
   list->next->prev = list;
@@ -68,6 +82,7 @@ char* join_nodes(struct StringNode* node) {
   size_t sz = 0;
   char* code;
   for (struct StringNode* n = node; n; n = n->next) {
+    trim(n->str);
     sz += strlen(n->str) + 1;
   }
   if (sz == 0) return NULL;
@@ -144,19 +159,20 @@ char* preprocess_code(char* code) {
         continue;
       if (strlen(n->str + i + 1) >= strlen("%define") && n->str[i] == '%' && strncmp(n->str + i + 1, "define", strlen("define")) == 0) {
         struct StringNode* np = detach_node(n); // remove node from list
-        i += strlen("define"); // skip macro word
+        i += strlen("%define"); // skip macro word
         for (; n->str[i] == ' ' || n->str[i] == '\t'; ++i); // skip whitespaces
         char* macro_name_p = n->str + i; // name pointer
         for (; n->str[i] != ' ' && n->str[i] != '\t'; ++i); // skip macro name
         size_t sz = n->str + i - macro_name_p;
         char macro_name[MAX_STR];
-        memcpy(macro_name_p, macro_name, sz);
+        memcpy(macro_name, macro_name_p, sz);
         macro_name[sz] = 0;
         sz = 0;
+        for (; n->str[i] == ' ' || n->str[i] == '\t'; ++i); // skip whitespaces
         char* macro_body_p = n->str + i;
         for (; n->str[i] != '\n' && n->str[i] != 0; ++i, ++sz);
         char macro_body[MAX_STR];
-        memcpy(macro_body_p, macro_body, sz);
+        memcpy(macro_body, macro_body_p, sz);
         macro_body[sz] = 0;
         replace_all(n->next, macro_name, macro_body);
         free(n);
@@ -167,7 +183,7 @@ char* preprocess_code(char* code) {
         // TODO: process include
         free(n);
         n = np;
-      } else if (n->str[i] == '#') {
+      } else if (n->str[i] == '%') {
         // Unknown macro
         fprintf(stderr, "Unknown macro: ");
         for (; n->str[i] != '\n' && n->str[i] != ' ' && n->str[i] != '\t'; ++i)
@@ -178,7 +194,7 @@ char* preprocess_code(char* code) {
       }
     }
   }
-  preprocessed = join_nodes(node);
+  preprocessed = join_nodes(node->next);
 end:
   free_nodes(node);
   node = NULL;
