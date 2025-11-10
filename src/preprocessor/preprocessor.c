@@ -4,6 +4,29 @@
 
 #include "preprocessor.h"
 
+void print_nodes(struct StringNode* node) {
+  int i = 0;
+  for (; node; node = node->next) {
+    printf("%d: %s\n", ++i, node->str);
+  }
+}
+
+/**
+ * Remove node from list and return pointer to previous element.
+*/
+static struct StringNode* detach_node(struct StringNode* node) {
+  if (node == NULL)
+    return NULL;
+  struct StringNode* prev = node->prev;
+  if (prev) {
+    prev->next = node->next;
+  }
+  if (node->next) {
+    node->next->prev = prev;
+  }
+  return prev;
+}
+
 /**
  * Split given string into linked nodes and return head.
  * Break char is \n.
@@ -12,9 +35,14 @@ struct StringNode* split_code(char* code) {
   struct StringNode* list = (struct StringNode*) malloc(sizeof(struct StringNode));
   size_t big_i = 0;
   size_t i;
-  memset(list, 0, MAX_STR);
+  memset(list->str, 0, MAX_STR);
+  list->next = (struct StringNode*) malloc(sizeof(struct StringNode));
+  memset(list->next->str, 0, MAX_STR);
+  list->next->prev = list;
+  list->next->next = NULL;
+  list->prev = NULL;
   if (list == NULL) return NULL;
-  for (struct StringNode* l = list; ; l = l->next) {
+  for (struct StringNode* l = list->next; ; l = l->next) {
     for (i = 0; code[i + big_i] != '\n'; ++i) {
       l->str[i] = code[i + big_i];
       if (code[i + big_i] == 0) {
@@ -24,6 +52,8 @@ struct StringNode* split_code(char* code) {
     }
     big_i += i + 1;
     l->next = (struct StringNode*) malloc(sizeof(struct StringNode));
+    l->next->next = NULL;
+    memset(l->next->str, 0, MAX_STR);
     l->next->prev = l;
   }
 end:
@@ -68,9 +98,9 @@ void str_replace(char* str, char* rep) {
   char* cc;
   char buf[MAX_STR];
   for (cc = str; *cc != ' ' && *cc != 0 && *cc != '\t' && *cc != '\n'; ++cc); // skip word to be replaced
-  strcpy(cc, buf);
-  strcpy(rep, str);
-  size_t sz = strlen(str);
+  strcpy(buf, cc);
+  strcpy(str, rep);
+  size_t sz = strlen(rep);
   str[sz] = ' ';
   str[sz+1] = 0;
   strcat(str, buf);
@@ -83,6 +113,8 @@ void replace_all(struct StringNode* node, char name[MAX_STR], char body[MAX_STR]
   size_t name_sz = strlen(name);
   for (; node; node = node->next) {
     for (size_t i = 0; i < MAX_STR && node->str[i]; ++i) {
+      if (strlen(node->str + i) < strlen(name))
+        break;
       if (strncmp(name, node->str + i, name_sz) == 0)
         str_replace(node->str + i, body);
     }
@@ -110,10 +142,8 @@ char* preprocess_code(char* code) {
       }
       if (comment_section || string)
         continue;
-      if (n->str[i] == '#' && strncmp(n->str + i + 1, "define", strlen("define")) == 0) {
-        struct StringNode* np = n->prev; // remove line from code
-        n->prev->next = n->next;
-        n->next->prev = n->prev; // detach node
+      if (strlen(n->str + i + 1) >= strlen("%define") && n->str[i] == '%' && strncmp(n->str + i + 1, "define", strlen("define")) == 0) {
+        struct StringNode* np = detach_node(n); // remove node from list
         i += strlen("define"); // skip macro word
         for (; n->str[i] == ' ' || n->str[i] == '\t'; ++i); // skip whitespaces
         char* macro_name_p = n->str + i; // name pointer
@@ -132,10 +162,8 @@ char* preprocess_code(char* code) {
         free(n);
         n = np;
         break;
-      } else if (n->str[i] == '#' && strncmp(n->str + i + 1, "include", strlen("include")) == 0) {
-        struct StringNode* np = n->prev;
-        n->prev->next = n->next;
-        n->next->prev = n->prev;
+      } else if (strlen(n->str + i + 1) >= strlen("%include") && n->str[i] == '%' && strncmp(n->str + i + 1, "include", strlen("include")) == 0) {
+        struct StringNode* np = detach_node(n);
         // TODO: process include
         free(n);
         n = np;
