@@ -27,7 +27,7 @@ check_err:
   }
   char* ps = preprocess_code(s);
   if (parse_results.preprocess_only) {
-    printf("%s\n", ps);
+    printf("%s", ps);
     goto free_time;
   }
   // free everything
