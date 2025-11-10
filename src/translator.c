@@ -21,7 +21,7 @@ check_err:
   size_t sz = ftell(input_file);
   rewind(input_file);
   char* s = (char*)malloc(sizeof(char) * sz);
-  if (fgets(s, sz, input_file) == NULL) {
+  if (fread(s, sz, sizeof(char), input_file) == 0) {
     fprintf(stderr, "Error when reading from file\n");
     return READ_ERROR;
   }
