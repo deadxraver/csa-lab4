@@ -22,13 +22,11 @@ add_executable(
     src/translator/argparser.c
 )
 
-#[[
 add_executable(
     test3
     test/preprocessor_error.c
     src/preprocessor/preprocessor.c
 )
-]]
 
 add_executable(
     test4
@@ -42,6 +40,6 @@ add_test(ARGPARSER_OK test1)
 
 add_test(ARGPARSER_ERR test2)
 
-# add_test(PREPROC_ERR test3)
+add_test(PREPROC_ERR test3)
 
 add_test(PREPROC_OK test4)
