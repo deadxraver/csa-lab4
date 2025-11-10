@@ -161,30 +161,36 @@ Functions can also be used as args, but should be wrapped in brackets, e.g.
 
 #### Installation
 
-If you don't have cargo, get it: `# apt install cargo -y`
+~If you don't have cargo, get it: `# apt install cargo -y`~
 
-To build formater, translator and executor run `cargo build --profile release`
+~To build formater, translator and executor run `cargo build --profile release`~
 
-After the compilation finishes you can find your executables here: `./target/release/`
+~After the compilation finishes you can find your executables here: `./target/release/`~
 
-If you want to run tests, simply run `cargo test`
+~If you want to run tests, simply run `cargo test`~
+
+Required dependencies are: `make cmake gcc`, optional: `gdb` if you want to debug.
 
 #### Building Your First Program
 
-##### Formater
+~##### Formater~
 
-To see the formated code run `srs_format filename.srs`
+~To see the formated code run `srs_format filename.srs`~
 
-To inplace it add a `-i` (or `--inplace`) key: `srs_format -i filename.srs`
+~To inplace it add a `-i` (or `--inplace`) key: `srs_format -i filename.srs`~
 
-Congrats! Now your code looks pretty
+~Congrats! Now your code looks pretty~
 
 ##### Translator
 
-To build your program run `srs_translate filename.srs`
+~To build your program run `srs_translate filename.srs`~
 
-Now you have a binary `filename.o` to be executed by an _executor_
+Run `asm-compile --preprocess-only code.asm` to see preprocessed code.
+
+_WIP_
+
+~Now you have a binary `filename.o` to be executed by an _executor_~
 
 ##### Executor
 
-_To be done yet_
+_WIP_
