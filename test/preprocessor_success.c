@@ -4,7 +4,7 @@
 #include <malloc.h>
 
 char initial_code[] = "%define ONE_CONST 1\nONE_CONST";
-char preprocessed_code[] = "1";
+char preprocessed_code[] = "1\n";
 
 int main() {
   int err_code = 0;
