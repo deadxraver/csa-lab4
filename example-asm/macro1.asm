@@ -1,3 +1,7 @@
 %define ONE 1
-ONE
+
+section .text
+
+  push_imm ONE
+  halt
 
