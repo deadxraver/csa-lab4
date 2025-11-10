@@ -1,6 +1,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "preprocessor.h"
 
@@ -9,6 +10,26 @@ void print_nodes(struct StringNode* node) {
   for (; node; node = node->next) {
     printf("%d: %s\n", ++i, node->str);
   }
+}
+
+char* get_file_content(char* path) {
+  FILE* f = fopen(path, "r");
+  char* code = NULL;
+  if (f == NULL)
+    goto end;
+  fseek(f, 0L, SEEK_END);
+  size_t sz = ftell(f);
+  rewind(f);
+  code = (char*) malloc(sizeof(char) * sz);
+  if (fread(code, sz, sizeof(char), f) == 0) {
+    fprintf(stderr, "Could not read expected from file '%s'\n", path);
+    free(code);
+    code = NULL;
+  }
+end:
+  if (f)
+    fclose(f);
+  return code;
 }
 
 /**
@@ -178,7 +199,41 @@ int preprocess_code_node(struct StringNode* node) {
         break;
       } else if (strlen(n->str + i + 1) >= strlen("%include") && n->str[i] == '%' && strncmp(n->str + i + 1, "include", strlen("include")) == 0) {
         struct StringNode* np = detach_node(n);
-        // TODO: process include
+        i += strlen("%include"); // skip include word
+        for (; n->str[i] == ' ' || n->str[i] == '\t'; ++i); // skip ws
+        if (n->str[i] != '"') {
+          fprintf(stderr, "include expects path inside \"\"\n");
+        bad_end:
+          free_nodes(node);
+          node = NULL;
+          return -1;
+        }
+        ++i; // skip "
+        trim(n->str + i);
+        if (n->str[i + strlen(n->str + i) - 1] != '"') {
+          fprintf(stderr, "include expects path inside \"\"\n");
+          goto bad_end;
+        }
+        n->str[i + strlen(n->str + i) - 1] = 0;
+        char* included = get_file_content(n->str + i);
+        if (included == NULL) {
+          goto bad_end;
+        }
+        struct StringNode* new_block = split_code(included);
+        free(included); // not needed anymore
+        included = NULL;
+        if (new_block == NULL) {
+          fprintf(stderr, "failed to allocate block\n");
+          goto bad_end;
+        }
+        np->next = new_block->next; // skip zero block
+        np->next->prev = np;
+        free(new_block);
+        new_block = NULL;
+        for (new_block = np->next; new_block->next; new_block = new_block->next); // skip content, need only last node
+        new_block->next = n->next;
+        if (new_block->next)
+          new_block->next->prev = new_block;
         free(n);
         n = np;
       } else if (n->str[i] == '%') {
