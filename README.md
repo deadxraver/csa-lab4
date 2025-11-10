@@ -65,7 +65,8 @@ main:
 * `.org` (`.аддр`) - sets up start address for section
 * `db` (`бд`), `dw` (`сд`) - define data size in `.data` (`.данные`) section (byte and word respectively)
 * `main` (`старт`) - label name for entrance point (like `_start` in normal languages)
-* `#define` (`#опред`) - macro for defining constants, etc.
+* `%define` (`%опред`) - macro for defining constants, etc.
+* `%include` - macro for inserting outer file contents inside the source code.
 
 ##### Instruction Keywords
 
