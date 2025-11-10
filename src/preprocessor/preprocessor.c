@@ -37,7 +37,10 @@ void trim(char str[MAX_STR]) {
     return ;
   if (i != 0)
     strcpy(str, str + i);
-  for (i = strlen(str) - 1; (i == ' ' || i == '\t') && i > 0; --i); // skip trailing whitespaces
+  for (size_t j = 0; j < MAX_STR && str[j]; ++j) {
+    if (str[j] != ' ' && str[j] != '\t')
+      i = j + 1;
+  }
   str[i] = 0;
 }
 
