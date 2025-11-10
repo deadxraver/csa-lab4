@@ -139,12 +139,7 @@ void replace_all(struct StringNode* node, char name[MAX_STR], char body[MAX_STR]
   }
 }
 
-/**
- * Preprocess given code and return allocated string.
- * Note that returned value should be freed.
-*/
-char* preprocess_code(char* code) {
-  struct StringNode* node = split_code(code);
+int preprocess_code_node(struct StringNode* node) {
   bool comment_section = false;
   bool string = false;
   char* preprocessed = NULL;
@@ -192,13 +187,25 @@ char* preprocess_code(char* code) {
         for (; n->str[i] != '\n' && n->str[i] != ' ' && n->str[i] != '\t'; ++i)
           fprintf(stderr, "%c", n->str[i]);
         fprintf(stderr, "\n");
-        preprocessed = NULL;
-        goto end;
+        return -1;
       }
     }
   }
-  preprocessed = join_nodes(node->next);
-end:
+  return 0;
+}
+
+/**
+ * Preprocess given code and return allocated string.
+ * Note that returned value should be freed.
+*/
+char* preprocess_code(char* code) {
+  struct StringNode* node = split_code(code);
+  int err_code = preprocess_code_node(node);
+  if (err_code) {
+    free_nodes(node);
+    return NULL;
+  }
+  char* preprocessed = join_nodes(node->next);
   free_nodes(node);
   node = NULL;
   return preprocessed;
