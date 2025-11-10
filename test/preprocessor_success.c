@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <malloc.h>
 
-char initial_code[] = "#define ONE_CONST 1\nONE_CONST";
+char initial_code[] = "%define ONE_CONST 1\nONE_CONST";
 char preprocessed_code[] = "1";
 
 int main() {
